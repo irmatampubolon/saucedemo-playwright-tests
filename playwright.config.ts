@@ -8,4 +8,9 @@ export default defineConfig({
     video: 'retain-on-failure',
     baseURL: 'https://www.saucedemo.com',
   },
+  reporter: [
+    ['html', { outputFolder: 'playwright-report' }],
+    ['list']
+  ],
+  outputDir: 'test-results/',
 });
