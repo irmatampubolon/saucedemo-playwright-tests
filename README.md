@@ -6,6 +6,7 @@ This is an automation testing project using **Playwright**. The tests are focuse
 
 The project includes tests for:
 - User login
+- Product browsing and filtering
 - Cart actions
 - Checkout flow
 
@@ -52,52 +53,84 @@ To view the CI/CD configuration, check the `.github/workflows/playwright.yml` fi
    git clone https://github.com/your-username/playwright-qa-portfolio.git
    cd playwright-qa-portfolio
 
-## 📋 Test Scenarios
+## 📋 Automated Test Scenarios
 
-### 🔐 Login
+### 🔐 Login Tests (login.spec.ts)
 
-| ID    | Test Case Description               | Expected Result                |
-|-------|-------------------------------------|--------------------------------|
-| TC001 | Login with valid credentials        | Redirect to inventory page     |
-| TC002 | Login with invalid credentials      | Display error message          |
-| TC003 | Login with empty username field    | Display "required" error       |
-| TC004 | Login with empty password field    | Display "required" error       |
-| TC005 | Login with empty fields            | Display "required" error       |
+| ID    | Test Case Description               | Expected Result                | Status |
+|-------|-------------------------------------|--------------------------------|--------|
+| TC001 | Login with valid credentials        | Redirect to inventory page     | ✅ Implemented |
+| TC002 | Login with invalid credentials      | Display error message          | ✅ Implemented |
+| TC003 | Login with empty username field     | Display "Username is required" error | ✅ Implemented |
+| TC004 | Login with empty password field     | Display "Password is required" error | ✅ Implemented |
+| TC005 | Login with empty fields             | Display "Username is required" error | ✅ Implemented |
 
-### 🛒 Cart
+### 🛍️ Product Tests (product.spec.ts)
 
-| ID    | Test Case Description               | Expected Result                |
-|-------|-------------------------------------|--------------------------------|
-| TC006 | Add product to cart                | Item added to cart, cart shows 1 |
-| TC007 | Remove product from cart           | Item removed from cart, cart empty |
-| TC008 | Add multiple products to cart      | Cart displays correct number of items |
-| TC009 | View cart                          | Cart page shows products added |
-| TC010 | Proceed to checkout from cart      | Redirect to checkout page     |
+| ID    | Test Case Description               | Expected Result                | Status |
+|-------|-------------------------------------|--------------------------------|--------|
+| TC006 | Filter products by name (A-Z)       | Products sorted alphabetically A-Z | ✅ Implemented |
+| TC007 | Filter products by name (Z-A)       | Products sorted alphabetically Z-A | ✅ Implemented |
+| TC008 | Filter products by price (low to high) | Products sorted by price ascending | ✅ Implemented |
+| TC009 | Filter products by price (high to low) | Products sorted by price descending | ✅ Implemented |
+| TC010 | View product details                | Product detail page displayed with correct info | ✅ Implemented |
+| TC011 | Navigate back from product details  | Return to products page       | ✅ Implemented |
+| TC012 | Add to cart from product details    | Item added to cart, counter updated | ✅ Implemented |
 
-### 💳 Checkout
+### 🛒 Cart Tests (cart.spec.ts)
 
-| ID    | Test Case Description               | Expected Result                |
-|-------|-------------------------------------|--------------------------------|
-| TC011 | Complete checkout with all fields filled | Order confirmation page is displayed |
-| TC012 | Leave required checkout fields blank | Show validation errors for empty fields |
-| TC013 | Complete checkout with invalid payment details | Show payment error message |
-| TC014 | Complete checkout with valid payment details | Successful checkout, order confirmation |
-| TC015 | Complete checkout with incorrect shipping address | Show address error message |
+| ID    | Test Case Description               | Expected Result                | Status |
+|-------|-------------------------------------|--------------------------------|--------|
+| TC013 | Add product to cart                 | Item added to cart, cart shows 1 | ✅ Implemented |
+| TC014 | Add multiple products to cart       | Cart displays correct number of items | ✅ Implemented |
+| TC015 | Remove item from cart               | Item removed from cart, cart empty | ✅ Implemented |
+| TC016 | Add multiple items and remove one   | Cart displays correct remaining item | ✅ Implemented |
+| TC017 | Continue shopping from cart page    | Return to products page        | ✅ Implemented |
+| TC018 | Proceed to checkout from cart       | Redirect to checkout page      | ✅ Implemented |
+
+### 💳 Checkout Tests (checkout.spec.ts)
+
+| ID    | Test Case Description               | Expected Result                | Status |
+|-------|-------------------------------------|--------------------------------|--------|
+| TC019 | Complete checkout with valid information | Order confirmation page displayed | ✅ Implemented |
+| TC020 | Checkout with empty first name      | Display "First Name is required" error | ✅ Implemented |
+| TC021 | Checkout with empty last name       | Display "Last Name is required" error | ✅ Implemented |
+| TC022 | Checkout with empty postal code     | Display "Postal Code is required" error | ✅ Implemented |
+| TC023 | Checkout with all fields empty      | Display "First Name is required" error | ✅ Implemented |
+
+## 🔍 Future Test Enhancements
+
+The following test scenarios have been identified for future implementation:
 
 ### 🛠️ Error Handling
 
-| ID    | Test Case Description               | Expected Result                |
-|-------|-------------------------------------|--------------------------------|
-| TC016 | Invalid username format            | Show "Invalid username" error |
-| TC017 | Invalid password format            | Show "Invalid password" error |
-| TC018 | Incorrect password attempt         | Show "Incorrect password" error |
-| TC019 | Unexpected server error            | Show "Server error, try again later" message |
+| ID    | Test Case Description               | Expected Result                | Status |
+|-------|-------------------------------------|--------------------------------|--------|
+| TC024 | Login with locked out user          | Show "user has been locked out" error | ⏳ Planned |
+| TC025 | Login with problem user             | Successfully login but with UI glitches | ⏳ Planned |
+| TC026 | Login with performance glitch user  | Login with intentional slow response | ⏳ Planned |
+| TC027 | Unexpected server error simulation  | Show appropriate error message | ⏳ Planned |
 
-### 🧑‍💻 Usability
+### 🧑‍💻 Usability and Performance
 
-| ID    | Test Case Description               | Expected Result                |
-|-------|-------------------------------------|--------------------------------|
-| TC020 | Verify "Forgot password" link       | Redirect to reset password page |
-| TC021 | Verify "Create new account" link    | Redirect to account creation page |
-| TC022 | Ensure UI elements are responsive   | UI elements adapt to different screen sizes |
-| TC023 | Verify loading times for page       | Page loads within acceptable time (e.g., < 3 seconds) |
+| ID    | Test Case Description               | Expected Result                | Status |
+|-------|-------------------------------------|--------------------------------|--------|
+| TC028 | Verify all product images load      | All images display correctly   | ⏳ Planned |
+| TC029 | Test page load performance          | Page loads within acceptable time | ⏳ Planned |
+| TC030 | Verify responsive design            | UI works correctly on different screen sizes | ⏳ Planned |
+
+## 🚀 Running the Tests
+
+```bash
+# Run all tests
+npx playwright test
+
+# Run specific test file
+npx playwright test login.spec.ts
+
+# Run tests with UI mode
+npx playwright test --ui
+
+# Generate test report
+npx playwright show-report
+```
