@@ -13,6 +13,31 @@ The project includes tests for:
 - **Playwright** for end-to-end testing
 - **TypeScript** for writing test scripts
 - **Node.js** and **NPM** for managing dependencies
+- **GitHub Actions** for CI/CD pipeline
+
+## 🚀 CI/CD Pipeline
+
+This project includes a CI/CD pipeline implemented using GitHub Actions. The pipeline automatically runs the test suite whenever code is pushed to the main branch or when pull requests are created.
+
+### CI/CD Features:
+
+- **Automated Testing**: All tests are automatically executed on every code change
+- **Multiple Environments**: Tests run on the latest Ubuntu environment
+- **Test Reports**: Test results are stored as artifacts for review
+- **Manual Trigger**: Pipeline can be triggered manually through the GitHub UI
+
+### Pipeline Workflow:
+
+1. Code is pushed to the repository
+2. GitHub Actions automatically detects the changes
+3. A virtual machine with Ubuntu is provisioned
+4. Node.js and project dependencies are installed
+5. Playwright browsers are installed
+6. Tests are executed against the SauceDemo website
+7. Test reports are generated and stored as artifacts
+8. Pipeline status is reported back to GitHub
+
+To view the CI/CD configuration, check the `.github/workflows/playwright.yml` file.
 
 ## 🛠️ Setup Instructions
 
